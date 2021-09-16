@@ -38,6 +38,24 @@
           
         </div>
 
+        <div class="mt-3">
+
+
+            @if ($post->tags)
+            
+                <h4>Tags</h4>
+
+                @foreach ($post->tags as $tag)
+                
+                    <span class="badge badge-primary"> {{$tag->name}} </span>
+
+                @endforeach
+
+            @endif
+
+
+        </div>
+
         <div> 
 
             <a href=" {{ route('admin.posts.index') }} " class=" mt-3 btn btn-primary">Torna indietro</a>
