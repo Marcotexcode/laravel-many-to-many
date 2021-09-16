@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Tag;
 use App\Category;
 
 
@@ -34,7 +35,9 @@ class PostController extends Controller
     {
         $categorys = Category::all(); 
 
-        return view('admin.posts.create', compact('categorys'));
+        $tags = Tag::all();
+ 
+        return view('admin.posts.create', compact('categorys', 'tags'));
         
     }
 
@@ -87,6 +90,16 @@ class PostController extends Controller
 
         // salvare dati  
         $new_post->save();
+
+        // salva dati nel ponte
+
+        if (isset($data['tags'])) {
+
+            $new_post->tags()->attach($data['tags']);
+
+        }
+
+
 
         return redirect()->route('admin.posts.index');
     }
@@ -180,6 +193,8 @@ class PostController extends Controller
     {
 
         $post->delete();
+
+        $post->tags()->detach();
 
         return redirect()->route('admin.posts.index')->with('updated', 'Hai cancellato l\' elemento ' . $post->id);;
         

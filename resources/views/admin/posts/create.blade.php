@@ -62,6 +62,24 @@
                 <textarea class="form-control @error('content') is-invalid @enderror " name="content" id="desc" cols="30" rows="10" >{{old('content')}}</textarea>
        
             </div>
+
+            <div class="mb-3">
+
+                <h4>Tag</h4>
+                @foreach ($tags as $tag)
+
+                    <span class="d-inline-block">
+
+                        <input  id="tag{{$loop->iteration}}" type="checkbox" value=" {{$tag->id}} " name="tags[]" @if(in_array($tag->id, old('tags', []))) checked   @endif>
+
+                        <label for="tag{{$loop->iteration}}" class="form-label"> {{$tag->name}} </label>
+
+                    </span>
+
+                @endforeach
+
+            </div>
+
        
             <button type="submit" class="btn btn-primary">Submit</button>
        
