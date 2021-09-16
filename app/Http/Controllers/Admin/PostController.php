@@ -126,7 +126,9 @@ class PostController extends Controller
 
         $categorys = Category::all(); 
 
-        return view('admin.posts.edit', compact('post','categorys'));
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post','categorys', 'tags'));
 
     }
 
@@ -178,6 +180,12 @@ class PostController extends Controller
         }
         
         $post->update($data);
+
+        if (array_key_exists('tags', $data)) {
+
+            $post->tags()->sync($data['tags']);
+
+        }
 
         return redirect()->route('admin.posts.index')->with('updated', 'Hai modificato l\' elemento ' . $post->id);
 

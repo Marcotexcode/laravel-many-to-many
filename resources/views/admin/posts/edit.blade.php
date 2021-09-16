@@ -65,6 +65,33 @@
                 <textarea name="content" id="desc" cols="30" rows="10" class="form-control">{{ old('content', $post->content) }}</textarea>
 
             </div>
+
+            <div class="mb-3">
+
+                <h4>Tag</h4>
+                @foreach ($tags as $tag)
+
+                    <span class="d-inline-block">
+
+                        <input  id="tag{{$loop->iteration}}" type="checkbox" value=" {{$tag->id}} " name="tags[]" 
+                        
+                            @if ( !$errors->any() && $post->tags->contains( $tag->id )) 
+
+                                checked 
+                            
+                            @elseif(in_array($tag->id, old('tags', [])))
+
+                                checked   
+                            
+                            @endif>
+
+                        <label for="tag{{$loop->iteration}}" class="form-label"> {{$tag->name}} </label>
+
+                    </span>
+
+                @endforeach
+
+            </div>
         
             <button type="submit" class="btn btn-primary">Submit</button>
     
