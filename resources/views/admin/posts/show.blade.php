@@ -40,18 +40,17 @@
 
         <div class="mt-3">
 
-
-            @if ($post->tags)
-            
-                <h4>Tags</h4>
-
-                @foreach ($post->tags as $tag)
+            <h4>Tags</h4>
                 
-                    <span class="badge badge-primary"> {{$tag->name}} </span>
+            @forelse ($post->tags as $tag)
 
-                @endforeach
+                <span class="badge badge-primary"> {{$tag->name}} </span>
 
-            @endif
+            @empty
+
+                <span>{{count($post->tags)}}</span>
+                
+            @endforelse
 
 
         </div>
